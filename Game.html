@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <link rel="stylesheet" href="Game.css">
+    <title>Game Page</title>
+
+
+    </head>
+	
+  <body>
+  
+<center>
+
+    <div class="box">
+      <button type="button" name="button" id='startGame' style='position: absolute; right: 0; bottom: 0; '>Start Game</button>
+    </div>
+
+    </div>
+	</center>
+	
+    <script src="jquery-3.3.1.js"></script>
+
+     <script>
+
+      $( document ).ready(function(){
+        // document is now ready
+
+        $("#startGame").click(function(){
+          $(this).hide();
+          $('.lost').hide();
+          animate(1000);
+        });
+
+        $(".box").append("<div class='inner'></div>");
+
+        var boxWidth = $(".box").innerWidth();
+        var boxHeight = $(".box").innerHeight();
+
+        var innerWidth = $(".inner").outerWidth();
+        var innerHeight = $(".inner").outerHeight();
+
+        var widthSpacing = (boxWidth - innerWidth) - 1;
+        var heightSpacing = (boxHeight - innerHeight) - 1;
+
+        $(".box").css("position", "relative");
+
+        function animate(speed){
+          $(".inner").show();
+          // if user clicks on .inner
+          $(".inner").click(function(){
+              $(this).remove();
+              $(".box").append("<h1 id='Win'><span>Y</span><span>O</span><span>U</span> <span>W</span><span>I</span><span></span><span>N</span><span>:)</span></h1>");
+              $("#startGame").show();
+			  });
+			  
+			            $("#startGame").click(function(){
+
+			            $(".inner").show();
+						          $(".inner").click(function(){
+
+          // if user clicks on .inner
+              $(this).remove();
+              $(".box").append("<h1><span>Y</span><span>O</span><span>U</span> <span>W</span><span>I</span><span></span><span>N</span><span>:)</span></h1>");
+              $("#startGame").show();
+			  });
+			  });
+   
+          // if user clicks on #startGame
+       /*  $("#startGame").click(function(){
+		      $(this).remove();
+			 $(".inner").remove();
+			  $("#Win").remove();
+              $(".box").append("<h1><span>Y</span><span>O</span><span>U</span> <span>W</span><span>I</span><span></span><span>N</span><span>:)</span></h1>");
+              $("#startGame").show();
+			  });
+*/
+          // start animating
+          $(".inner")
+          .css({"position": "absolute", "left": "0", "top": "0"})
+          .animate({left: widthSpacing}, speed)
+          .animate({top: heightSpacing}, speed)
+          .animate({left: 0}, speed).animate({top: 0}, speed, function(){
+            // if speed is still more than 0 do animate again
+            if(speed > 0){
+              animate(speed - 100);
+            // if speed is less than or equal to 0, show message
+            }else if(speed <= 0){
+			
+              $(this).hide();
+              $("#startGame").show();
+              $(".box").append("<h1 class='lost'>You Lost</h1>");
+            }
+          });
+		 
+         }
+
+
+      });
+
+
+    </script>
+  </body>
+</html>
